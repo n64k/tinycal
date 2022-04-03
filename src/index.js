@@ -65,7 +65,7 @@ class Month extends React.Component {
 
             let on = true;
             if (
-                this.currentDate.getDay() == 0 ||
+                this.currentDate.getDay() == 0 || 
                 this.currentDate.getDay() == 6
             ) {
                 on = false;
