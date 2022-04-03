@@ -1,13 +1,120 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+    /* --bg: #2c7; */
+    --bg: hsl(48, 98%, 63%);
+    --bg-dark: #888;
+
+    --text: hsl(30, 100%, 20%);
+    --text-light: #888;
+    --critical: #b00;
+    --border: 2px solid var(--text);
+    --padding: 2rem;
+    --text-size: 16px;
+
+    --cellSize: 48px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111;
+    --bg-dark: #888;
+    --text: #BBB;
+    --critical: #d00;
+    --border: 3px solid var(--text);
+    --padding: 2rem;
+  }
+} */
+
+body {
+    background-color: var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+    font-size: var(--text-size);
+    font-weight: 600;
+    color: var(--text);
 }
+
+body * {
+    box-sizing: border-box;
+}
+
+.root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.calendar {
+    width: fit-content;
+    margin: auto;
+    margin-top: var(--cellSize)
+}
+    .head {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 1rem;
+        
+    }
+        
+        .month-and-date {
+            font-size: 24px;
+            font-weight: 800;
+        }
+        
+        .current-date {
+            font-weight: 400;
+            /* color: hsl(35, 100%, 35%); */
+        }
+    
+        .workdays-left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: var(--cellSize);
+            
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border: 3px dotted white;
+            border-radius: 99px;
+            
+        }
+    
+    .month {
+        width: fit-content;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(7, var(--cellSize));
+    
+        gap: 8px 8px;
+        /* column-gap: 10px; */
+        /* row-gap: 15px; */
+    }
+    .cell {
+        width: var(--cellSize);
+        height: var(--cellSize);
+        padding: 0px;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .day-of-the-week {
+        font-weight: 400;
+        color: hsl(35, 100%, 35%);
+        height: calc(var(--cellSize) - 8px)
+    }
+    .day {
+        border-radius: 999px;
+    }
+    
+    [next="true"][on="true"] {
+        background-color: white;
+    }
+    [next="true"]:hover {
+        background-color: hsla(0, 0%, 100%, 0.7);
+    }
