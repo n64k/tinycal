@@ -52,7 +52,7 @@ class Month extends React.Component {
                     if (currentDate.getMonth() !== new Date().getMonth()) {
                         next = false;
                     }
-                    if (currentDate < new Date()) {
+                    if (currentDate.getDate() < new Date().getDate()) {
                         next = false;
                     }
                     dayCopy.next = next
@@ -178,7 +178,7 @@ class Month extends React.Component {
                 </div>
                 
                 <footer>
-                    <a href="#">TinyCal v0.1</a>
+                    <a href="#">TinyCal v0.1.1</a>
                     </footer>
             </div>
         );
