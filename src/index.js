@@ -169,13 +169,17 @@ class Month extends React.Component {
                         <span className="current-month">{currentMonth}</span> 
                         <span className="current-date"> {new Date().getDate()}</span>
                     </p>
-                    <p className="workdays-left">{workdaysLeft} Workdays left</p>
+                    <p className="workdays-left">{workdaysLeft} Workdays Left</p>
                 </div>
                 
                 <div className="month">
                     {daysOfWeek}
                     {dates}
                 </div>
+                
+                <footer>
+                    <a href="#">TinyCal v0.1</a>
+                    </footer>
             </div>
         );
     }

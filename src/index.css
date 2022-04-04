@@ -4,13 +4,13 @@
     --bg-dark: #888;
 
     --text: hsl(30, 100%, 20%);
-    --text-light: #888;
+    --text-light: hsl(35, 100%, 35%);
     --critical: #b00;
     --border: 2px solid var(--text);
     --padding: 2rem;
     --text-size: 16px;
 
-    --cellSize: 48px;
+    --cellSize: 56px;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -65,12 +65,10 @@ body * {
             font-size: 28px;
             font-weight: 800;
         }
-        
         .current-date {
             font-weight: 400;
             /* color: hsl(35, 100%, 35%); */
         }
-    
         .workdays-left {
             display: flex;
             justify-content: center;
@@ -79,8 +77,14 @@ body * {
             
             padding-left: 1rem;
             padding-right: 1rem;
-            border: 3px dotted white;
+            /* border: 3px dotted white; */
             border-radius: 99px;
+            
+            /* font-size: 20px; */
+            font-weight: 800;
+            font-size: 28px;
+            color: var(--text-light);
+            color: white;
             
         }
     
@@ -90,7 +94,7 @@ body * {
         display: grid;
         grid-template-columns: repeat(7, var(--cellSize));
     
-        gap: 8px 8px;
+        gap: 12px 12px;
         /* column-gap: 10px; */
         /* row-gap: 15px; */
     }
@@ -118,9 +122,35 @@ body * {
         border-radius: 999px;
     }
     
+    footer {
+        height: var(--cellSize);
+        
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
+        padding-left: 12px;
+        
+        font-family: Menlo, monospace;
+        font-weight: 400;
+        font-size: 9px;
+        
+    }
+    
+    footer a,
+    footer a:link,
+    footer a:visited,
+    footer a:hover,
+    footer a:hover{
+        height: fit-content;
+        text-decoration: none;
+        color: var(--text-light)
+        
+    }
+    
     [next="true"][on="true"] {
         background-color: white;
     }
     [next="true"]:hover {
-        background-color: hsla(0, 0%, 100%, 0.7);
+        background-color: hsla(0, 0%, 100%, 0.6);
     }
