@@ -32,13 +32,51 @@ class Month extends React.Component {
         this.currentMonth = this.today.getMonth();
         this.firstOfTheMonth = new Date(2022, this.today.getMonth());
         this.days = [];
-
+        
+        
+        
+        let tcMonth = JSON.parse(localStorage.getItem("tcMonth"))
+        if (!tcMonth) {
+            console.log("Oh snap!")
+            this.createNewMonth()
+        }
+        
+        if (tcMonth) {
+            if (tcMonth.month == this.currentMonth) {
+                // UPDATE .next
+                tcMonth.days = tcMonth.days.map(day => {
+                    let dayCopy = {...day}
+                    let currentDate = new Date(day.date)
+                    // Deactivate past days
+                    let next = true;
+                    if (currentDate.getMonth() !== new Date().getMonth()) {
+                        next = false;
+                    }
+                    if (currentDate < new Date()) {
+                        next = false;
+                    }
+                    dayCopy.next = next
+                    dayCopy.date = new Date(day.date)
+                    return dayCopy
+                })
+                this.state = tcMonth
+                
+            } else {
+                // CREATE NEW MONTH
+                // UPDATE STATE
+            }
+        }
+        
+        localStorage.setItem("tcMonth", JSON.stringify(this.state))
+    }
+    
+    createNewMonth() {
+        console.log("CALL")
         // Go to the first of the month, then move backwards until Sunday
         this.currentDate = new Date(this.firstOfTheMonth.getTime());
         while (this.currentDate.getDay() > 0) {
             this.currentDate.setDate(this.currentDate.getDate() - 1);
         }
-
         // Find the end of the last week containing the current month
         //
         // S   M   T   W   T   F   S*
@@ -49,28 +87,28 @@ class Month extends React.Component {
             0
         );
         this.end.setDate(this.end.getDate() + (6 - this.end.getDay()));
-
         // Push it
         this.state = {
+            month: this.today.getMonth(),
             days: [],
         };
         while (this.currentDate <= this.end) {
+            // Deactivate past days
             let next = true;
-            if (this.currentDate.getMonth() !== new Date().getMonth()) {
+            if (this.currentMonth !== new Date().getMonth()) {
                 next = false;
             }
             if (this.currentDate < new Date()) {
                 next = false;
             }
-
+            // Toggle on weekdays
             let on = true;
             if (
-                this.currentDate.getDay() == 0 || 
-                this.currentDate.getDay() == 6
+                this.currentDate.getDay() == 0 ||  this.currentDate.getDay() == 6
             ) {
                 on = false;
             }
-
+        
             this.state.days.push({
                 date: cloneDate(this.currentDate),
                 next: next,
@@ -86,7 +124,7 @@ class Month extends React.Component {
         console.log(!days[i].on);
         this.setState({
             days: days,
-        });
+        },  localStorage.setItem("tcMonth", JSON.stringify(this.state)));
     }
 
     renderDate(i) {
