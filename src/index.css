@@ -154,3 +154,6 @@ body * {
     [next="true"]:hover {
         background-color: hsla(0, 0%, 100%, 0.6);
     }
+   .today {
+       border: 3px solid var(--text-light)
+   }

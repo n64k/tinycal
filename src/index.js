@@ -13,14 +13,21 @@ function cloneDate(date) {
 }
 
 function Day(props) {
+    let isToday = ""
+    if (
+        props.date == new Date().getDate() &&
+        props.month == new Date().getMonth()
+    ) {
+        isToday = " today"
+    }
     return (
         <div
-            className="cell day"
+            className={"cell day" + isToday}
             next={props.next}
             on={props.on}
             onClick={props.onClick}
         >
-            {props.value}
+            {props.date}
         </div>
     );
 }
@@ -132,7 +139,8 @@ class Month extends React.Component {
             <Day
                 key={i}
                 index={i}
-                value={this.state.days[i].date.getDate()}
+                date={this.state.days[i].date.getDate()}
+                month={this.state.days[i].date.getMonth()}
                 next={this.state.days[i].next.toString()}
                 on={this.state.days[i].on.toString()}
                 onClick={() => this.handleClick(i)}
