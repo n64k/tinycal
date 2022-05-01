@@ -4,8 +4,20 @@ import "./index.css";
 
 let daysInEachMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 let daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-let monthsOfTheYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-
+let monthsOfTheYear = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+];
 
 // Verify
 function cloneDate(date) {
@@ -13,12 +25,12 @@ function cloneDate(date) {
 }
 
 function Day(props) {
-    let isToday = ""
+    let isToday = "";
     if (
         props.date == new Date().getDate() &&
         props.month == new Date().getMonth()
     ) {
-        isToday = " today"
+        isToday = " today";
     }
     return (
         <div
@@ -39,21 +51,23 @@ class Month extends React.Component {
         this.currentMonth = this.today.getMonth();
         this.firstOfTheMonth = new Date(2022, this.today.getMonth());
         this.days = [];
-        
-        
-        
-        let tcMonth = JSON.parse(localStorage.getItem("tcMonth"))
-        if (!tcMonth) {
-            console.log("Oh snap!")
-            this.createNewMonth()
+
+        let tcMonth = localStorage.getItem("tcMonth");
+        if (tcMonth !== "undefined") {
+            tcMonth = JSON.parse(tcMonth);
         }
-        
+
+        if (tcMonth == "undefined") {
+            console.log("Oh snap!");
+            this.createNewMonth();
+        }
+
         if (tcMonth) {
             if (tcMonth.month == this.currentMonth) {
                 // UPDATE .next
-                tcMonth.days = tcMonth.days.map(day => {
-                    let dayCopy = {...day}
-                    let currentDate = new Date(day.date)
+                tcMonth.days = tcMonth.days.map((day) => {
+                    let dayCopy = { ...day };
+                    let currentDate = new Date(day.date);
                     // Deactivate past days
                     let next = true;
                     if (currentDate.getMonth() !== new Date().getMonth()) {
@@ -62,23 +76,22 @@ class Month extends React.Component {
                     if (currentDate.getDate() < new Date().getDate()) {
                         next = false;
                     }
-                    dayCopy.next = next
-                    dayCopy.date = new Date(day.date)
-                    return dayCopy
-                })
-                this.state = tcMonth
-                
+                    dayCopy.next = next;
+                    dayCopy.date = new Date(day.date);
+                    return dayCopy;
+                });
+                this.state = tcMonth;
             } else {
                 // CREATE NEW MONTH
                 // UPDATE STATE
             }
         }
-        
-        localStorage.setItem("tcMonth", JSON.stringify(this.state))
+
+        localStorage.setItem("tcMonth", JSON.stringify(this.state));
     }
-    
+
     createNewMonth() {
-        console.log("CALL")
+        console.log("CALL");
         // Go to the first of the month, then move backwards until Sunday
         this.currentDate = new Date(this.firstOfTheMonth.getTime());
         while (this.currentDate.getDay() > 0) {
@@ -111,11 +124,11 @@ class Month extends React.Component {
             // Toggle on weekdays
             let on = true;
             if (
-                this.currentDate.getDay() == 0 ||  this.currentDate.getDay() == 6
+                this.currentDate.getDay() == 0 ||
+                this.currentDate.getDay() == 6
             ) {
                 on = false;
             }
-        
             this.state.days.push({
                 date: cloneDate(this.currentDate),
                 next: next,
@@ -128,10 +141,13 @@ class Month extends React.Component {
     handleClick(i) {
         let days = this.state.days.slice();
         days[i].on = !days[i].on;
-        console.log(!days[i].on);
-        this.setState({
-            days: days,
-        },  localStorage.setItem("tcMonth", JSON.stringify(this.state)));
+        // console.log(!days[i].on);
+        this.setState(
+            {
+                days: days,
+            },
+            localStorage.setItem("tcMonth", JSON.stringify(this.state))
+        );
     }
 
     renderDate(i) {
@@ -167,27 +183,32 @@ class Month extends React.Component {
                 workdaysLeft++;
             }
         });
-        
-        let currentMonth = monthsOfTheYear[new Date().getMonth()]
+
+        let currentMonth = monthsOfTheYear[new Date().getMonth()];
 
         return (
             <div className="calendar">
                 <div className="head">
                     <p className="month-and-date">
-                        <span className="current-month">{currentMonth}</span> 
-                        <span className="current-date"> {new Date().getDate()}</span>
+                        <span className="current-month">{currentMonth}</span>
+                        <span className="current-date">
+                            {" "}
+                            {new Date().getDate()}
+                        </span>
                     </p>
-                    <p className="workdays-left">{workdaysLeft} Workdays Left</p>
+                    <p className="workdays-left">
+                        {workdaysLeft} Workdays Left
+                    </p>
                 </div>
-                
+
                 <div className="month">
                     {daysOfWeek}
                     {dates}
                 </div>
-                
+
                 <footer>
-                    <a href="#">TinyCal v0.1.1</a>
-                    </footer>
+                    <a href="#">TinyCal v0.1.3</a>
+                </footer>
             </div>
         );
     }
