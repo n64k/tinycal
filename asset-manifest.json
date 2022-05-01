@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/tinycal/static/css/main.4591d620.css",
-    "main.js": "/tinycal/static/js/main.8c7ca349.js",
+    "main.js": "/tinycal/static/js/main.a746816a.js",
     "index.html": "/tinycal/index.html",
     "main.4591d620.css.map": "/tinycal/static/css/main.4591d620.css.map",
-    "main.8c7ca349.js.map": "/tinycal/static/js/main.8c7ca349.js.map"
+    "main.a746816a.js.map": "/tinycal/static/js/main.a746816a.js.map"
   },
   "entrypoints": [
     "static/css/main.4591d620.css",
-    "static/js/main.8c7ca349.js"
+    "static/js/main.a746816a.js"
   ]
 }
